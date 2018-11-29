@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>viewersRank</title>
+</head>
+<body>
+<div>
+    <div th:each="game,userStat: ${viewersRank}">
+        <div th:text="${userStat.index+1}">rank</div>
+        <div th:text="${game.gameName}">date</div>
+        <div th:text="${game.viewers}">viewers</div>
+    </div>
+</div>
+</body>
+</html>

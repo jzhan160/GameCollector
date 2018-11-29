@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>600 Term Project: Twittch Data</title>
 
-  <link rel="stylesheet" href="css/reset.min.css">
+  <link rel="stylesheet" th:href="@{/css/reset.min.css}">
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/dot-luv/jquery-ui.css"
   />
-  <link rel="stylesheet" href="css/timeSlider.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" th:href="@{/css/timeSlider.css}" >
+  <link rel="stylesheet" th:href="@{/css/style.css}" >
 </head>
 
 <body>
@@ -92,7 +91,7 @@
   <!-- //tab-wrapper -->
 
 
-  <script src='js/jquery.min.js'></script>
+  <script th:src="@{/js/jquery.min.js}"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -102,7 +101,7 @@
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
-  <script src="js/index.js"></script>
+  <script th:src="@{/js/index.js}" ></script>
 
   <!--Script for tab 1 -->
   <script type="text/javascript">

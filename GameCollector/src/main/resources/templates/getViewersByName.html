@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="viewersUtilNow : ${viewersUtilNows}">
+    <div th:text="${viewersUtilNow.date}">date</div>
+    <div th:text="${viewersUtilNow.viewers}">viewers</div>
+</div>
+</body>
+</html>
