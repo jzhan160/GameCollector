@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gamecollector.demo.mapper.GameMapper" >
+  <resultMap id="BaseResultMap" type="com.gamecollector.demo.model.Game" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="time" property="time" jdbcType="TIME" />
+    <result column="rank" property="rank" jdbcType="INTEGER" />
+    <result column="game" property="game" jdbcType="VARCHAR" />
+    <result column="channels" property="channels" jdbcType="INTEGER" />
+    <result column="viewers" property="viewers" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, date, time, rank, game, channels, viewers, type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamecollector.demo.model.GameExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from game
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from game
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from game
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gamecollector.demo.model.GameExample" >
+    delete from game
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gamecollector.demo.model.Game" >
+    insert into game (id, date, time, rank, 
+      game, channels, viewers, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{time,jdbcType=TIME}, #{rank,jdbcType=INTEGER}, 
+      #{game,jdbcType=VARCHAR}, #{channels,jdbcType=INTEGER}, #{viewers,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gamecollector.demo.model.Game" >
+    insert into game
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="game != null" >
+        game,
+      </if>
+      <if test="channels != null" >
+        channels,
+      </if>
+      <if test="viewers != null" >
+        viewers,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIME},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="game != null" >
+        #{game,jdbcType=VARCHAR},
+      </if>
+      <if test="channels != null" >
+        #{channels,jdbcType=INTEGER},
+      </if>
+      <if test="viewers != null" >
+        #{viewers,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gamecollector.demo.model.GameExample" resultType="java.lang.Integer" >
+    select count(*) from game
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update game
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIME},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=INTEGER},
+      </if>
+      <if test="record.game != null" >
+        game = #{record.game,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channels != null" >
+        channels = #{record.channels,jdbcType=INTEGER},
+      </if>
+      <if test="record.viewers != null" >
+        viewers = #{record.viewers,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update game
+    set id = #{record.id,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=DATE},
+      time = #{record.time,jdbcType=TIME},
+      rank = #{record.rank,jdbcType=INTEGER},
+      game = #{record.game,jdbcType=VARCHAR},
+      channels = #{record.channels,jdbcType=INTEGER},
+      viewers = #{record.viewers,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamecollector.demo.model.Game" >
+    update game
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIME},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="game != null" >
+        game = #{game,jdbcType=VARCHAR},
+      </if>
+      <if test="channels != null" >
+        channels = #{channels,jdbcType=INTEGER},
+      </if>
+      <if test="viewers != null" >
+        viewers = #{viewers,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gamecollector.demo.model.Game" >
+    update game
+    set date = #{date,jdbcType=DATE},
+      time = #{time,jdbcType=TIME},
+      rank = #{rank,jdbcType=INTEGER},
+      game = #{game,jdbcType=VARCHAR},
+      channels = #{channels,jdbcType=INTEGER},
+      viewers = #{viewers,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
