@@ -8,8 +8,8 @@
 <div>
     <div th:each="game,userStat: ${viewersRank}">
         <div th:text="${userStat.index+1}">rank</div>
-        <div th:text="${game.gameName}">date</div>
-        <div th:text="${game.viewers}">viewers</div>
+        <div th:text="${game.game}">date</div>
+        <div th:text="${game.total}">viewers</div>
     </div>
 </div>
 </body>

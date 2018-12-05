@@ -11,6 +11,8 @@
     <result column="viewers" property="viewers" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
+
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -86,6 +88,39 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="selectViewersInATimeRangeByExample" resultType="com.gamecollector.demo.model.ViewerResult" parameterType="com.gamecollector.demo.model.GameExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    SUM(viewers) as total, game
+
+     from game
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    GROUP BY game
+    ORDER BY total desc limit 6;
+  </select>
+
+
+  <select id="selectViewersOfOneGameByExample" resultType="com.gamecollector.demo.model.ViewerResult" parameterType="com.gamecollector.demo.model.GameExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    SUM(viewers)/288 as total, game, date
+
+    from game
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    GROUP BY date
+    ORDER BY date
+  </select>
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

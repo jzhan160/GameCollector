@@ -81,7 +81,9 @@ public class DateUtil {
 		try {
 			return fmt.parse(date);
 		} catch (ParseException e) {
+/*
 			e.printStackTrace();
+*/
 			return null;
 		}
 	}
@@ -91,7 +93,9 @@ public class DateUtil {
 		try {
 			return fmt.parse(time);
 		} catch (ParseException e) {
+/*
 			e.printStackTrace();
+*/
 			return null;
 		}
 	}
