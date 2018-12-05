@@ -4,6 +4,7 @@ import com.gamecollector.demo.model.Game;
 import com.gamecollector.demo.model.ViewerResult;
 import com.gamecollector.demo.model.ViewersUtilNow;
 import com.gamecollector.demo.service.GameService;
+import com.gamecollector.demo.service.PythonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import java.util.*;
 public class MainController {
     @Autowired
     private GameService gameService;
+    @Autowired
+    private PythonService pythonService;
 
     //get total viewers of a given game name  from the beginning date unitl now
     @RequestMapping(value = "/getViewersByName",method = RequestMethod.POST)
@@ -57,4 +60,12 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getScores",method = RequestMethod.POST)
+    public String getScores(@RequestParam("review") String review) {
+        String score = pythonService.getScoreByReview(review);
+        return score;
+    }
+
 }
