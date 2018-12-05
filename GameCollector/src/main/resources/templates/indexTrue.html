@@ -76,7 +76,56 @@
 
       <!--Tab 2 -->
       <div>
-        <div style="float:left;height: 500px; width: 500px;">11</div>
+        <div style="float:left;height: 500px; width: 250px;">
+          <p>Please select games:</p>
+          <div style="width: 200px; height: 500px; overflow-y: scroll;">
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+            <p><input type="checkbox" name="category" value="汽车" />game</p>
+            <p><input type="checkbox" name="category" value="科技" />game</p>
+            <p><input type="checkbox" name="category" value="房产" />game</p>
+            <p><input type="checkbox" name="category" value="旅游" />game</p>
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+            <p><input type="checkbox" name="category" value="汽车" />game</p>
+            <p><input type="checkbox" name="category" value="科技" />game</p>
+            <p><input type="checkbox" name="category" value="房产" />game</p>
+            <p><input type="checkbox" name="category" value="旅游" />game</p>
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+          </div>
+          </br>
+          <p><input id="btnOperate" type="button" value="submit" class="ui-button ui-state-default ui-corner-all"  onclick="static_num()" /></p>
+
+        </div>
+
+        <div style="float:left;height: 500px; width: 250px;">
+          <p>or select game types:</p>
+          <div style="width: 200px; height: 500px; overflow-y: scroll;">
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+            <p><input type="checkbox" name="category" value="汽车" />game</p>
+            <p><input type="checkbox" name="category" value="科技" />game</p>
+            <p><input type="checkbox" name="category" value="房产" />game</p>
+            <p><input type="checkbox" name="category" value="旅游" />game</p>
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+            <p><input type="checkbox" name="category" value="汽车" />game</p>
+            <p><input type="checkbox" name="category" value="科技" />game</p>
+            <p><input type="checkbox" name="category" value="房产" />game</p>
+            <p><input type="checkbox" name="category" value="旅游" />game</p>
+            <p><input type="checkbox" name="category" value="今日话题" />game </p>
+            <p><input type="checkbox" name="category" value="视觉焦点" />game</p>
+            <p><input type="checkbox" name="category" value="财经" />game</p>
+          </div>
+          </br>
+          <p><input id="btnOperate2" type="button" value="submit" class="ui-button ui-state-default ui-corner-all"  onclick="static_num()" /></p>
+        </div>
         <div id="tab2" style="height: 500px; width: 800px; float:left;"></div>
       </div>
 
@@ -296,7 +345,19 @@
   </script>
 
   <script type="text/javascript">
-
+      function static_num()
+      {
+          document.getElementById("btnOperate").onclick = function () {
+              var arr = new Array();
+              var items = document.getElementsByName("category");
+              for (i = 0; i < items.length; i++) {
+                  if (items[i].checked) {
+                      arr.push(items[i].value);
+                  }
+              }
+              alert("选择的个数为：" + arr.length);
+          };
+      };
   </script>
 
 
