@@ -9,6 +9,8 @@ import org.python.util.PythonInterpreter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloPython {
     @Test
@@ -76,6 +78,50 @@ public class HelloPython {
             e.printStackTrace();
         }
 
+    }
+    @Test
+    public void testGetData(){
+        Process proc;
+        List<String> lines = new ArrayList<>();
+        try {
+            String[] args = new String[] { "python", "D:\\GitHub\\GameCollector\\GamesDate\\getData.py", "HITMAN" };
+            proc = Runtime.getRuntime().exec(args);// 执行py文件
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                //System.out.println(line);
+                lines.add(line);
+            }
+            in.close();
+            proc.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(lines);
+    }
+
+    @Test
+    public void testNLP(){
+        Process proc;
+        try {
+            String[] args = new String[] { "python", "D:\\GitHub\\GameCollector\\GamesDate\\nlp.py", "such an addictive game!" };
+            proc = Runtime.getRuntime().exec(args);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+            proc.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
