@@ -181,42 +181,29 @@
     app.title = 'Game Rank';
 
     option = {
-        title: {
-            text: 'Game Rank',
-            subtext: 'Data comes from https://www.twitch.tv/'
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'shadow'
-            }
-        },
-        legend: {
-            data: ['2011年', '2012年']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'value',
-            boundaryGap: [0, 0.01]
-        },
-        yAxis: {
-            type: 'category',
-            data: ['Game1', 'Game2', 'Game3', 'Game4', 'Game5', 'Game6']
-        },
-        series: [
-            {
-                name: 'Viewers',
-                type: 'bar',
-                data: [18203, 23489, 29034, 104970, 131744, 630230]
-            }
-        ]
+
+      title: {
+        text: 'Game Rank',
+        subtext: 'Data comes from https://www.twitch.tv/'
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+      }
     };
-    ;
+
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -311,33 +298,94 @@
     var startDate;
     var endDate;
     $(function () {
-        $("#slider-range-date").slider({
-            range: true,
-            min: new Date('2018.03.25').getTime() / 1000,
-            max: new Date('2018.11.16').getTime() / 1000,
-            step: 86400,
-            values: [new Date('2018.03.25').getTime() / 1000, new Date('2018.11.16').getTime() / 1000],
-            slide: function (event, ui) {
-                $("#amount").val((new Date(ui.values[0] * 1000).toDateString()) + " - " + (new Date(ui.values[1] * 1000)).toDateString());
-                startDate = new Date(ui.values[0] * 1000).toDateString();
-                endDate = new Date(ui.values[1] * 1000).toDateString();
-            }
-        });
 
-        $("#amount").val((new Date($("#slider-range-date").slider("values", 0) * 1000).toDateString()) +
-            " - " + (new Date($("#slider-range-date").slider("values", 1) * 1000)).toDateString());
+      $("#slider-range-date").slider({
+        range: true,
+        min: new Date('2018.03.25').getTime() / 1000,
+        max: new Date('2018.11.16').getTime() / 1000,
+        step: 86400,
+        values: [new Date('2018.03.25').getTime() / 1000, new Date('2018.11.16').getTime() / 1000],
+        slide: function (event, ui) {
+          $("#amount").val((new Date(ui.values[0] * 1000).toDateString()) + " - " + (new Date(ui.values[1] * 1000)).toDateString());
+          startDate = new Date(ui.values[0] * 1000).toDateString();
+          endDate = new Date(ui.values[1] * 1000).toDateString();
+        }
+      });
+
+      $("#amount").val((new Date($("#slider-range-date").slider("values", 0) * 1000).toDateString()) +
+        " - " + (new Date($("#slider-range-date").slider("values", 1) * 1000)).toDateString());
 
 
-        $("#dateSubmit").on('click', function () {
-            console.log(startDate);
-            console.log(endDate);
-            $180('#DateSchedule tbody').append('<tr>' +
-                '<td>' + startDate + '</td>' +
-                '<td>' + endDate + '</td>' +
-                '</tr>');
-        });
+      $("#dateSubmit").on('click', function () {
+        console.log(startDate);
+        console.log(endDate);
+        $('#DateSchedule tbody').append('<tr>' +
+          '<td>' + startDate + '  ' + startTime + '</td>' +
+          '<td>' + endDate + '  ' + endTime + '</td>' +
+          '</tr>');
+          $.ajax({
+              url: "/getRankByDateTimeRange",
+              data: {"startTime": startTime, "endTime": endTime,
+                  "startDate" : startDate, "endDate": endDate
+              },
+              type : "post",
+              success: function (result) {
+                  var newDom = document.getElementById("tab1");
+                  var curChart = echarts.init(newDom);
+                  var app = {};
+                  newOption = null;
+                  var nameArray = new Array();
+                  var viewCountArray = new Array();
+                  $.each(result, function (i, val) {
+                      nameArray.push(val.game);
+                      viewCountArray.push(val.total)
+                  });
+                  nameArray.reverse();
+                  viewCountArray.reverse();
+                  app.title = 'Game Rank';
+                  newOption = {
+                      title: {
+                          text: 'Game Rank',
+                          subtext: 'Data comes from https://www.twitch.tv/'
+                      },
+                      tooltip: {
+                          trigger: 'axis',
+                          axisPointer: {
+                              type: 'shadow'
+                          }
+                      },
+                      grid: {
+                          left: '3%',
+                          right: '4%',
+                          bottom: '3%',
+                          containLabel: true
+                      },
+                      xAxis: {
+                          type: 'value',
+                          boundaryGap: [0, 0.01]
+                      },
+                      yAxis: {
+                          position: 'right',
+                          type: 'category',
+                          data: nameArray
+                      },
+                      series: [
+                          {
+                              name: 'Viewers',
+                              type: 'bar',
+                              data: viewCountArray
+                          }
+                      ]
+                  };
+                  if (newOption && typeof newOption === "object") {
+                      curChart.setOption(newOption, true);
+              }
+                  alert(11);
+          }
+      })
+      })
 
-    });
+    })
 
 
 </script>

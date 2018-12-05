@@ -38,8 +38,10 @@ public class GameServiceImpl implements GameService {
     public List<ViewerResult> selectGamesRankByDateTimeRange(String startDate, String endDate, String startTime, String endTime) {
         Date start_date = DateUtil.fomatDate(startDate);
         Date end_date = DateUtil.fomatDate(endDate);
+
         Date start_time = DateUtil.formatTime(startTime);
         Date end_time = DateUtil.formatTime(endTime);
+
         GameExample gameExample = new GameExample();
         List<ViewerResult> games = null;
         if (start_date==null&&end_date==null)
