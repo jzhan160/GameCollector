@@ -30,15 +30,60 @@ public class MainController {
 
 
     //get top 15 games with the most viewers in a time range
+
     @RequestMapping(value = "/getRankByDateTimeRange",method = RequestMethod.POST)
-    public ModelAndView getRankByDateTimeRange(@RequestParam("startDate") String startDate,
+    public @ResponseBody List<ViewerResult> getRankByDateTimeRange(@RequestParam("startDate") String startDate,
                                   @RequestParam("endDate") String endDate,
                                   @RequestParam("startTime") String startTime,
                                   @RequestParam("endTime") String endTime) {
-        List<ViewerResult> viewersRank = gameService.selectGamesRankByDateTimeRange(startDate,endDate,startTime,endTime);
-        ModelAndView mv = new ModelAndView("viewersRank");
-        mv.addObject("viewersRank",viewersRank);
-        return mv;
+
+        System.out.println(parseDateTime(startTime,startDate));
+        System.out.println(parseDateTime(endTime,endDate));
+        String[] start = parseDateTime(startTime,startDate).split(" ");
+        String[] end = parseDateTime(endTime,endDate).split(" ");
+        List<ViewerResult> viewersRank = gameService.selectGamesRankByDateTimeRange(start[0],end[0],start[1],end[1]);
+        return viewersRank;
+    }
+
+    private String parseDateTime(String time, String date){
+        String res = "";
+        Map<String, String> t = new HashMap<>();
+        t.put("Dec","12");
+        t.put("Nov","11");
+        t.put("Oct","10");
+        t.put("Sep", "9");
+        t.put("Aug", "8");
+        t.put("Jul","7");
+        t.put("Jun","6");
+        t.put("May","5");
+        t.put("Apr","4");
+        t.put("Mar","3");
+        t.put("Feb","2");
+        t.put("Jan","1");
+        String[] d = date.split(" ");
+        //"yyyy-MM-dd HH:mm:ss"
+        res += d[3] + "-";
+        res += t.get(d[1]) + "-";
+        res += d[2] + " ";
+
+        String[] ti = time.split(" ");
+        for(int i = 0; i < time.length(); i++){
+            if(time.charAt(i) == ':'){
+                if(ti[1].equals("AM")){
+                    res += time.substring(0,i) + ":";
+                    res += ti[0].substring(i+1) + ":00";
+                    return res;
+                }
+                else{
+                    res += String.valueOf(Integer.valueOf(time.substring(0,i)) + 12) + ":";
+                    res += ti[0].substring(i+1) + ":00";
+                    return res;
+                }
+            }
+        }
+
+
+        return "";
     }
 
 
