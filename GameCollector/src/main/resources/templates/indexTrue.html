@@ -312,6 +312,16 @@
           '<td>' + startDate + '</td>' +
           '<td>' + endDate + '</td>' +
           '</tr>');
+
+          $.ajax({
+              url: "/url...",
+              data: {"startTime": startTime, "endTime": endTime,
+                  "startDate" : startDate, "endDate": endDate
+              },
+              success: function (result) {
+
+              }
+          });
       });
 
     });
