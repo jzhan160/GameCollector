@@ -37,6 +37,7 @@ public class MainController {
                 total.add(curR.get(i).getTotal());
                 dates.add(i);
             }
+            g.setGameName(curR.get(0).getGame());
             g.setDates(dates);
             g.setTotals(total);
             gameLists.add(g);

@@ -359,7 +359,6 @@
                     if (newOption && typeof newOption === "object") {
                         curChart.setOption(newOption, true);
                     }
-                    alert(11);
                 }
             })
         })
@@ -376,23 +375,10 @@
     var app = {};
     option = null;
     option = {
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line'
-        },{
-            data: [100, 200, 300, 400, 500, 1330, 1320],
-            type: 'line'
+        title: {
+            text: 'Game viewers changes from March 2018 to November 2018',
         }
-        ]
     };
-    ;
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
     }
@@ -407,7 +393,6 @@
                 arr.push(items[i].value);
             }
         }
-        alert("Total number：" + arr.length);
         $.ajax({
             url: "/getViewersByName",
             data: {
@@ -422,23 +407,33 @@
                     var curData = new Array();
                     var curSeries = {
                         type: 'line',
-                        data: val.totals
+                        data: val.totals,
+                        showSymbol: false,
+                        name:val.gameName
                     };
                     data.push(curSeries);
                 });
-
-
-                alert(11);
                 var dom = document.getElementById("tab2");
                 var myChart = echarts.init(dom);
                 var app = {};
                 option = null;
                 option = {
+                    title: {
+                        text: 'Game viewers changes from March 2018 to November 2018',
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
                     xAxis: {
+                        name: 'Day',
                         type: 'category',
                         data: result[0].dates
                     },
                     yAxis: {
+                        name: 'Viewers',
                         type: 'value'
                     },
                     series: data
