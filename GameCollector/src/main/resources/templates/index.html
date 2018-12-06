@@ -12,14 +12,13 @@
     <link rel="stylesheet" th:href="@{/css/timeSlider.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-<!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <!--
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
 
 </head>
 
 <body>
-<script src="/demos/googlegg.js"></script>
 <div class="tab-wrapper">
 
     <ul class="tab-menu">
@@ -142,15 +141,10 @@
             <div class="container">
                 <form action="/getScores" class="parent" method="post">
                     <input type="text" name="review">
-                    <input type="submit" value="get a score">
+                    <input id="search" type="button" value="get a score">
                 </form>
             </div>
-
-
-            <div>
-                <h1 th:text="${score}" style="align-self: center">score</h1>
-            </div>
-
+            <div id="score" align="center"></div>
         </div>
     </div>
     <!-- //tab-content -->
@@ -182,26 +176,26 @@
 
     option = {
 
-      title: {
-        text: 'Game Rank',
-        subtext: 'Data comes from https://www.twitch.tv/'
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
+        title: {
+            text: 'Game Rank',
+            subtext: 'Data comes from https://www.twitch.tv/'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
         }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'value',
-        boundaryGap: [0, 0.01]
-      }
     };
 
     if (option && typeof option === "object") {
@@ -299,92 +293,111 @@
     var endDate;
     $(function () {
 
-      $("#slider-range-date").slider({
-        range: true,
-        min: new Date('2018.03.25').getTime() / 1000,
-        max: new Date('2018.11.16').getTime() / 1000,
-        step: 86400,
-        values: [new Date('2018.03.25').getTime() / 1000, new Date('2018.11.16').getTime() / 1000],
-        slide: function (event, ui) {
-          $("#amount").val((new Date(ui.values[0] * 1000).toDateString()) + " - " + (new Date(ui.values[1] * 1000)).toDateString());
-          startDate = new Date(ui.values[0] * 1000).toDateString();
-          endDate = new Date(ui.values[1] * 1000).toDateString();
-        }
-      });
+        $("#slider-range-date").slider({
+            range: true,
+            min: new Date('2018.03.25').getTime() / 1000,
+            max: new Date('2018.11.16').getTime() / 1000,
+            step: 86400,
+            values: [new Date('2018.03.25').getTime() / 1000, new Date('2018.11.16').getTime() / 1000],
+            slide: function (event, ui) {
+                $("#amount").val((new Date(ui.values[0] * 1000).toDateString()) + " - " + (new Date(ui.values[1] * 1000)).toDateString());
+                startDate = new Date(ui.values[0] * 1000).toDateString();
+                endDate = new Date(ui.values[1] * 1000).toDateString();
+            }
+        });
 
-      $("#amount").val((new Date($("#slider-range-date").slider("values", 0) * 1000).toDateString()) +
-        " - " + (new Date($("#slider-range-date").slider("values", 1) * 1000)).toDateString());
+        $("#amount").val((new Date($("#slider-range-date").slider("values", 0) * 1000).toDateString()) +
+            " - " + (new Date($("#slider-range-date").slider("values", 1) * 1000)).toDateString());
 
 
-      $("#dateSubmit").on('click', function () {
-        console.log(startDate);
-        console.log(endDate);
-        $('#DateSchedule tbody').append('<tr>' +
-          '<td>' + startDate + '  ' + startTime + '</td>' +
-          '<td>' + endDate + '  ' + endTime + '</td>' +
-          '</tr>');
-          $.ajax({
-              url: "/getRankByDateTimeRange",
-              data: {"startTime": startTime, "endTime": endTime,
-                  "startDate" : startDate, "endDate": endDate
-              },
-              type : "post",
-              success: function (result) {
-                  var newDom = document.getElementById("tab1");
-                  var curChart = echarts.init(newDom);
-                  var app = {};
-                  newOption = null;
-                  var nameArray = new Array();
-                  var viewCountArray = new Array();
-                  $.each(result, function (i, val) {
-                      nameArray.push(val.game);
-                      viewCountArray.push(val.total)
-                  });
-                  nameArray.reverse();
-                  viewCountArray.reverse();
-                  app.title = 'Game Rank';
-                  newOption = {
-                      title: {
-                          text: 'Game Rank',
-                          subtext: 'Data comes from https://www.twitch.tv/'
-                      },
-                      tooltip: {
-                          trigger: 'axis',
-                          axisPointer: {
-                              type: 'shadow'
-                          }
-                      },
-                      grid: {
-                          left: '3%',
-                          right: '4%',
-                          bottom: '3%',
-                          containLabel: true
-                      },
-                      xAxis: {
-                          type: 'value',
-                          boundaryGap: [0, 0.01]
-                      },
-                      yAxis: {
-                          position: 'right',
-                          type: 'category',
-                          data: nameArray
-                      },
-                      series: [
-                          {
-                              name: 'Viewers',
-                              type: 'bar',
-                              data: viewCountArray
-                          }
-                      ]
-                  };
-                  if (newOption && typeof newOption === "object") {
-                      curChart.setOption(newOption, true);
-              }
-                  alert(11);
-          }
-      })
-      })
+        $("#dateSubmit").on('click', function () {
+            console.log(startDate);
+            console.log(endDate);
+            $('#DateSchedule tbody').append('<tr>' +
+                '<td>' + startDate + '  ' + startTime + '</td>' +
+                '<td>' + endDate + '  ' + endTime + '</td>' +
+                '</tr>');
+            $.ajax({
+                url: "/getRankByDateTimeRange",
+                data: {
+                    "startTime": startTime, "endTime": endTime,
+                    "startDate": startDate, "endDate": endDate
+                },
+                type: "post",
+                success: function (result) {
+                    var newDom = document.getElementById("tab1");
+                    var curChart = echarts.init(newDom);
+                    var app = {};
+                    newOption = null;
+                    var nameArray = new Array();
+                    var viewCountArray = new Array();
+                    $.each(result, function (i, val) {
+                        nameArray.push(val.game);
+                        viewCountArray.push(val.total)
+                    });
+                    nameArray.reverse();
+                    viewCountArray.reverse();
+                    app.title = 'Game Rank';
+                    newOption = {
+                        title: {
+                            text: 'Game Rank',
+                            subtext: 'Data comes from https://www.twitch.tv/'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value',
+                            boundaryGap: [0, 0.01]
+                        },
+                        yAxis: {
+                            position: 'right',
+                            type: 'category',
+                            data: nameArray
+                        },
+                        series: [
+                            {
+                                name: 'Viewers',
+                                type: 'bar',
+                                data: viewCountArray
+                            }
+                        ]
+                    };
+                    if (newOption && typeof newOption === "object") {
+                        curChart.setOption(newOption, true);
+                    }
+                }
+            })
+        });
 
+
+
+        $("#search").on('click', function () {
+            var review = document.getElementsByName("review");
+            $.ajax({
+                url: "/getScores",
+                data: {
+                    "review": review.toString()
+                },
+                type: "post",
+                success: function (result) {
+                    document.getElementById("score").innerHTML="<h2 style='font-size: 50px'>"+result+"</h2>";
+
+                },
+                error: function (result) {
+                    alert("error");
+                }
+            })
+        });
     })
 
 
@@ -429,6 +442,8 @@
         };
     };
 </script>
+
+
 
 
 </body>

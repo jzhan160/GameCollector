@@ -5,6 +5,7 @@ import com.gamecollector.demo.model.ViewerResult;
 import com.gamecollector.demo.model.ViewersUtilNow;
 import com.gamecollector.demo.service.GameService;
 import com.gamecollector.demo.service.PythonService;
+import org.python.antlr.ast.Str;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,9 +92,9 @@ public class MainController {
 
 
 
-    @RequestMapping("/tab1")
+    @RequestMapping("/search")
     public String test() {
-        return "tab1";
+        return "search";
     }
 
     @RequestMapping("/tab2")
@@ -106,9 +107,9 @@ public class MainController {
         return "index";
     }
 
-    @ResponseBody
+
     @RequestMapping(value = "/getScores",method = RequestMethod.POST)
-    public String getScores(@RequestParam("review") String review) {
+    public @ResponseBody String getScores(@RequestParam("review") String review) {
         String score = pythonService.getScoreByReview(review);
         return score;
     }
