@@ -1,6 +1,7 @@
 package com.gamecollector.demo.controller;
 
 import com.gamecollector.demo.model.Game;
+import com.gamecollector.demo.model.GameList;
 import com.gamecollector.demo.model.ViewerResult;
 import com.gamecollector.demo.model.ViewersUtilNow;
 import com.gamecollector.demo.service.GameService;
@@ -25,11 +26,23 @@ public class MainController {
 
     //get total viewers of a given game name  from the beginning date unitl now
     @RequestMapping(value = "/getViewersByName",method = RequestMethod.POST)
-    public ModelAndView getViewersByName(@RequestParam("gameNames") List<String> gameNames) {
-        List<List<ViewerResult>> viewersUtilNows = gameService.selectGameByName(gameNames);
-        ModelAndView mv = new ModelAndView("getViewersByName");
-        mv.addObject("viewersUtilNows",viewersUtilNows);
-        return mv;
+    public @ResponseBody  List<GameList> getViewersByName(@RequestParam("gameNames") List<String> gameNames) {
+        List<List<ViewerResult>> res = gameService.selectGameByName(gameNames);
+        List<GameList> gameLists = new LinkedList<>();
+        for(List<ViewerResult> curR : res){
+            GameList g = new GameList();
+            List<Long> total = new LinkedList<>();
+            List<Integer> dates = new LinkedList<>();
+
+            for(int i = 0; i < curR.size(); i++ ){
+                total.add(curR.get(i).getTotal());
+                dates.add(i);
+            }
+            g.setDates(dates);
+            g.setTotals(total);
+            gameLists.add(g);
+        }
+        return gameLists;
     }
 
 

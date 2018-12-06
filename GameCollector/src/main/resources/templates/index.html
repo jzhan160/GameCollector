@@ -81,26 +81,29 @@
 
         <!--Tab 2 -->
         <div>
-            <div style="float:left;height: 500px; width: 250px;">
+            <div style="float:left;height: 500px; width: 500px;">
                 <p>Please select games:</p>
-                <div style="width: 200px; height: 500px; overflow-y: scroll;">
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
-                    <p><input type="checkbox" name="category" value="汽车"/>game</p>
-                    <p><input type="checkbox" name="category" value="科技"/>game</p>
-                    <p><input type="checkbox" name="category" value="房产"/>game</p>
-                    <p><input type="checkbox" name="category" value="旅游"/>game</p>
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
-                    <p><input type="checkbox" name="category" value="汽车"/>game</p>
-                    <p><input type="checkbox" name="category" value="科技"/>game</p>
-                    <p><input type="checkbox" name="category" value="房产"/>game</p>
-                    <p><input type="checkbox" name="category" value="旅游"/>game</p>
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
+                <div style="width: 400px; height: 500px; overflow-y: scroll;">
+                    <p><input type="checkbox" name="category" value="Fortnite"/>Fortnite </p>
+                    <p><input type="checkbox" name="category" value="League of Legends"/>League of Legends</p>
+                    <p><input type="checkbox" name="category" value="PLAYERUNKNOWN'S BATTLEGROUNDS"/>PLAYERUNKNOWN'S
+                        BATTLEGROUNDS</p>
+                    <p><input type="checkbox" name="category" value="Dota 2"/>Dota 2</p>
+                    <p><input type="checkbox" name="category" value="Overwatch"/>Overwatch</p>
+                    <p><input type="checkbox" name="category" value="Counter-Strike: Global Offensive"/>Counter-Strike:
+                        Global Offensive</p>
+                    <p><input type="checkbox" name="category" value="World of Warcraft"/>World of Warcraft</p>
+                    <p><input type="checkbox" name="category" value="Grand Theft Auto V"/>Grand Theft Auto V </p>
+                    <p><input type="checkbox" name="category" value="Tom Clancy's Rainbow Six: Siege"/>Tom Clancy's
+                        Rainbow Six: Siege</p>
+                    <p><input type="checkbox" name="category" value="Path of Exile"/>Path of Exile</p>
+                    <p><input type="checkbox" name="category" value="Watch Dogs"/>Watch Dogs</p>
+                    <p><input type="checkbox" name="category" value="Heroes of the Storm"/>Heroes of the Storm</p>
+                    <p><input type="checkbox" name="category" value="StarCraft II"/>StarCraft II</p>
+                    <p><input type="checkbox" name="category" value="Sea of Thieves"/>Sea of Thieves</p>
+                    <p><input type="checkbox" name="category" value="RuneScape"/>RuneScape </p>
+                    <p><input type="checkbox" name="category" value="A Way Out"/>A Way Out</p>
+                    <p><input type="checkbox" name="category" value="Music"/>Music</p>
                 </div>
                 </br>
                 <p><input id="btnOperate" type="button" value="submit" class="ui-button ui-state-default ui-corner-all"
@@ -108,31 +111,6 @@
 
             </div>
 
-            <div style="float:left;height: 500px; width: 250px;">
-                <p>or select game types:</p>
-                <div style="width: 200px; height: 500px; overflow-y: scroll;">
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
-                    <p><input type="checkbox" name="category" value="汽车"/>game</p>
-                    <p><input type="checkbox" name="category" value="科技"/>game</p>
-                    <p><input type="checkbox" name="category" value="房产"/>game</p>
-                    <p><input type="checkbox" name="category" value="旅游"/>game</p>
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
-                    <p><input type="checkbox" name="category" value="汽车"/>game</p>
-                    <p><input type="checkbox" name="category" value="科技"/>game</p>
-                    <p><input type="checkbox" name="category" value="房产"/>game</p>
-                    <p><input type="checkbox" name="category" value="旅游"/>game</p>
-                    <p><input type="checkbox" name="category" value="今日话题"/>game </p>
-                    <p><input type="checkbox" name="category" value="视觉焦点"/>game</p>
-                    <p><input type="checkbox" name="category" value="财经"/>game</p>
-                </div>
-                </br>
-                <p><input id="btnOperate2" type="button" value="submit" class="ui-button ui-state-default ui-corner-all"
-                          onclick="static_num()"/></p>
-            </div>
             <div id="tab2" style="height: 500px; width: 800px; float:left;"></div>
         </div>
 
@@ -314,8 +292,8 @@
             console.log(startDate);
             console.log(endDate);
             $('#DateSchedule tbody').append('<tr>' +
-                '<td>' + startDate + '  ' + startTime + '</td>' +
-                '<td>' + endDate + '  ' + endTime + '</td>' +
+      '<td>' + startDate + ' ' + startTime + '</td>' + '<td>' + ' ' + '</td>' +
+                 '<td>' + endDate + '  ' + endTime + '</td>' +
                 '</tr>');
             $.ajax({
                 url: "/getRankByDateTimeRange",
@@ -375,11 +353,10 @@
                     if (newOption && typeof newOption === "object") {
                         curChart.setOption(newOption, true);
                     }
+
                 }
             })
-        });
-
-
+        })
 
         $("#search").on('click', function () {
             var review = document.getElementsByName("review");
@@ -420,7 +397,11 @@
         series: [{
             data: [820, 932, 901, 934, 1290, 1330, 1320],
             type: 'line'
-        }]
+        },{
+            data: [100, 200, 300, 400, 500, 1330, 1320],
+            type: 'line'
+        }
+        ]
     };
     ;
     if (option && typeof option === "object") {
@@ -430,16 +411,57 @@
 
 <script type="text/javascript">
     function static_num() {
-        document.getElementById("btnOperate").onclick = function () {
-            var arr = new Array();
-            var items = document.getElementsByName("category");
-            for (i = 0; i < items.length; i++) {
-                if (items[i].checked) {
-                    arr.push(items[i].value);
+        var arr = new Array();
+        var items = document.getElementsByName("category");
+        for (i = 0; i < items.length; i++) {
+            if (items[i].checked) {
+                arr.push(items[i].value);
+            }
+        }
+        alert("Total number：" + arr.length);
+        $.ajax({
+            url: "/getViewersByName",
+            data: {
+                gameNames: arr.join()
+            },
+            datatype : "json",
+            type: "post",
+            success: function (result) {
+                var data = new Array();
+
+                $.each(result, function (i, val) {
+                    var curData = new Array();
+                    var curSeries = {
+                        type: 'line',
+                        data: val.totals
+                    };
+                    data.push(curSeries);
+                });
+
+
+                alert(11);
+                var dom = document.getElementById("tab2");
+                var myChart = echarts.init(dom);
+                var app = {};
+                option = null;
+                option = {
+                    xAxis: {
+                        type: 'category',
+                        data: result[0].dates
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: data
+                };
+                ;
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
                 }
             }
-            alert("选择的个数为：" + arr.length);
-        };
+        })
+
+
     };
 </script>
 
