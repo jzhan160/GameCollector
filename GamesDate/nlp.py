@@ -193,8 +193,6 @@ if __name__ == "__main__":
     # t = 'this is one of my favourite games of the year and it is one I would encourage any previous Final Fantasy fan to consider'
     # get_score(t)
     #
-    # t = " This game has a cool concept but doesnt pool it off well and overall gets boring after about an hour and even quicker when you play， so Bad"
-    # get_score(t)
     #
     # t=" This game has a cool concept but doesnt pool it off well and overall gets boring after about an hour and even quicker when you play， so Bad"
     # get_score(t)

@@ -124,6 +124,7 @@ public class MainController {
 
     @RequestMapping(value = "/getScores",method = RequestMethod.POST)
     public @ResponseBody String getScores(@RequestParam("review") String review) {
+        System.out.println(review+"...............");
         String score = pythonService.getScoreByReview(review);
         return score;
     }

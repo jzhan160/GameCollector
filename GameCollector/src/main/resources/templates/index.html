@@ -118,12 +118,14 @@
         <div>
             <div class="container">
                 <form action="/getScores" class="parent" method="post">
-                    <input type="text" name="review">
+                    <input type="text" name="review" id="review">
                     <input id="search" type="button" value="get a score">
                 </form>
             </div>
             <div id="score" align="center"></div>
+
         </div>
+
     </div>
     <!-- //tab-content -->
 
@@ -353,17 +355,19 @@
                     if (newOption && typeof newOption === "object") {
                         curChart.setOption(newOption, true);
                     }
- 
+
                 }
             })
         })
 
         $("#search").on('click', function () {
-            var review = document.getElementsByName("review");
+            document.getElementById("score").innerHTML="";
+            var review = document.getElementById("review").value;
+            console.log(review);
             $.ajax({
                 url: "/getScores",
                 data: {
-                    "review": review.toString()
+                    "review": review
                 },
                 type: "post",
                 success: function (result) {

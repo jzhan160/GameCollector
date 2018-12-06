@@ -107,7 +107,7 @@ public class HelloPython {
     public void testNLP(){
         Process proc;
         try {
-            String[] args = new String[] { "python", "D:\\GitHub\\GameCollector\\GamesDate\\nlp.py", " amazing game" };
+            String[] args = new String[] { "python", "D:\\GitHub\\GameCollector\\GamesDate\\nlp.py", "this is one of my favourite games of the year and it is one I would encourage any previous Final Fantasy fan to consider" };
             proc = Runtime.getRuntime().exec(args);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
